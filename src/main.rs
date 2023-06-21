@@ -83,6 +83,6 @@ impl Summary for Tweet {
     }
 }
 
-fn summarize(thing: &dyn Summary) {
+fn summarize<T: Summary>(thing: &T) {
     println!("{}",thing.summarize());
 }
