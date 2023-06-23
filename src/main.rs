@@ -27,6 +27,9 @@ fn main() {
     };
 
     summarize(&tweet);
+
+    let longer_str = longest(&"hello", &"hey");
+    println!("{longer_str}");
 }
 
 fn largest(list: &[i32]) -> i32 {
@@ -85,4 +88,20 @@ impl Summary for Tweet {
 
 fn summarize<T: Summary>(thing: &T) {
     println!("{}",thing.summarize());
+}
+
+// the below will cause a compile-time error
+// "this function's return type contains a borrowed value, but the signatrue does not say whether it
+// is borrowed from 'x' or 'y' consider introducing a named lifetime parameter"
+// fn longest(x: &str, y: &str) -> &str {
+   //  if x.len() > y.len() {
+      //   x
+    // }
+    // y
+// }
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        return x;
+    }
+    y
 }
